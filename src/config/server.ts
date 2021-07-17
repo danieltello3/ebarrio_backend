@@ -44,7 +44,9 @@ export default class Server {
 
    start() {
       this.app.listen(this.port, async () => {
-         console.log("Servidor corriendo exitosamente");
+         console.log(
+            `Servidor corriendo exitosamente en el puerto ${this.port}`
+         );
          try {
             await connection.sync();
             console.log("Base de datos sincronizada");
