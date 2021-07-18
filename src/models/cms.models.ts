@@ -137,7 +137,7 @@ const pedidoModel = connection.define(
          allowNull: false,
       },
       pedidoTotal: {
-         type: DataTypes.DECIMAL(5, 2),
+         type: DataTypes.DECIMAL,
          field: "total",
          allowNull: false,
       },
@@ -173,7 +173,7 @@ const detalleModel = connection.define(
          allowNull: false,
       },
       detalleSubTotal: {
-         type: DataTypes.DECIMAL(5, 2),
+         type: DataTypes.DECIMAL,
          field: "sub_total",
          allowNull: false,
       },
@@ -181,5 +181,145 @@ const detalleModel = connection.define(
    {
       modelName: "detalles",
       timestamps: false,
+   }
+);
+
+const productoModel = connection.define(
+   "producto",
+   {
+      productoId: {
+         type: DataTypes.INTEGER,
+         field: "id",
+         primaryKey: true,
+         autoIncrement: true,
+         unique: true,
+      },
+      productoNombre: {
+         type: DataTypes.INTEGER,
+         field: "nombre",
+         allowNull: false,
+      },
+      productoPrecio: {
+         type: DataTypes.DECIMAL,
+         field: "precio",
+         allowNull: false,
+      },
+      productoCodigo: {
+         type: DataTypes.STRING,
+         field: "codigo",
+         allowNull: false,
+      },
+      productoDescripcion: {
+         type: DataTypes.TEXT,
+         field: "descripcion",
+         allowNull: false,
+      },
+      productoCantidad: {
+         type: DataTypes.INTEGER,
+         field: "cantidad",
+         allowNull: false,
+         defaultValue: 0,
+      },
+   },
+   {
+      modelName: "productos",
+   }
+);
+
+const categoriaModel = connection.define(
+   "categoria",
+   {
+      categoriaId: {
+         type: DataTypes.INTEGER,
+         field: "categoria",
+         primaryKey: true,
+         autoIncrement: true,
+         unique: true,
+      },
+      categoriaNombre: {
+         type: DataTypes.STRING,
+         field: "nombre",
+         allowNull: false,
+      },
+      categoriaTipo: {
+         type: DataTypes.INTEGER,
+         field: "tipo",
+      },
+   },
+   {
+      modelName: "categorias",
+      timestamps: false,
+   }
+);
+
+const servicioModel = connection.define(
+   "servicio",
+   {
+      servicioId: {
+         type: DataTypes.INTEGER,
+         field: "id",
+         primaryKey: true,
+         autoIncrement: true,
+         unique: true,
+      },
+      servicioNombre: {
+         type: DataTypes.INTEGER,
+         field: "nombre",
+         allowNull: false,
+      },
+      servicioPrecio: {
+         type: DataTypes.DECIMAL,
+         field: "precio",
+         allowNull: false,
+      },
+      servicioCodigo: {
+         type: DataTypes.STRING,
+         field: "codigo",
+         allowNull: false,
+      },
+      servicioDescripcion: {
+         type: DataTypes.TEXT,
+         field: "descripcion",
+         allowNull: false,
+      },
+      servicioDisponibilidad: {
+         type: DataTypes.TINYINT,
+         field: "disponibilidad",
+         defaultValue: false,
+      },
+   },
+   {
+      modelName: "servicios",
+   }
+);
+
+const imagenModel = connection.define(
+   "imagen",
+   {
+      imagenId: {
+         type: DataTypes.INTEGER,
+         field: "id",
+         primaryKey: true,
+         autoIncrement: true,
+         unique: true,
+      },
+      imagenNombre: {
+         type: DataTypes.STRING,
+         field: "nombre",
+         allowNull: false,
+      },
+      imagenExtension: {
+         type: DataTypes.STRING,
+         field: "extension",
+         allowNull: false,
+      },
+      imagenPath: {
+         type: DataTypes.STRING,
+         field: "path",
+         allowNull: false,
+      },
+   },
+   {
+      modelName: "imagenes",
    }
 );
