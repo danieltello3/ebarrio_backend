@@ -1,8 +1,9 @@
-import express from "express";
-import bodyParser, { json } from "body-parser";
+import express, { NextFunction, Request, Response } from "express";
+import { json } from "body-parser";
 import dotenv from "dotenv";
-import { NextFunction, Request, Response } from "express-serve-static-core";
 import { connection } from "./sequelize";
+import morgan from "morgan";
+import { tipoRouter } from "../routes/tipos";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ export default class Server {
 
    bodyParser() {
       this.app.use(json());
+      this.app.use(morgan("dev"));
    }
 
    CORS() {
@@ -40,6 +42,7 @@ export default class Server {
       this.app.get("/", (req: Request, res: Response) => {
          res.send("Bienviendo a la API de Ebarrio");
       });
+      this.app.use(tipoRouter);
    }
 
    start() {
