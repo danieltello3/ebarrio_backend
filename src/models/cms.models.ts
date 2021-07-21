@@ -4,7 +4,7 @@ import { hashSync } from "bcrypt";
 
 const usuarioModel = () =>
    connection.define(
-      "usuario",
+      "usuarios",
       {
          usuarioId: {
             type: DataTypes.INTEGER,
@@ -57,269 +57,343 @@ const usuarioModel = () =>
       }
    );
 
-const tipoModel = connection.define(
-   "tipo",
-   {
-      tipoId: {
-         type: DataTypes.INTEGER,
-         field: "id",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const tipoModel = () =>
+   connection.define(
+      "tipos",
+      {
+         tipoId: {
+            type: DataTypes.INTEGER,
+            field: "id",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         tipoNombre: {
+            type: DataTypes.STRING,
+            field: "nombre",
+            unique: true,
+            allowNull: false,
+         },
       },
-      tipoNombre: {
-         type: DataTypes.STRING,
-         field: "nombre",
-         unique: true,
-         allowNull: false,
-      },
-   },
-   {
-      tableName: "tipos",
-      timestamps: false,
-   }
-);
+      {
+         tableName: "tipos",
+         timestamps: false,
+      }
+   );
 
-const direccionModel = connection.define(
-   "direccion",
-   {
-      direccionId: {
-         type: DataTypes.INTEGER,
-         field: "id",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const direccionModel = () =>
+   connection.define(
+      "direcciones",
+      {
+         direccionId: {
+            type: DataTypes.INTEGER,
+            field: "id",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         direccionNombre: {
+            type: DataTypes.TEXT,
+            field: "nombre",
+            allowNull: false,
+         },
+         direccionDistrito: {
+            type: DataTypes.STRING,
+            field: "distrito",
+            allowNull: false,
+         },
+         direccionProvincia: {
+            type: DataTypes.STRING,
+            field: "provincia",
+            allowNull: false,
+         },
+         direccionNumero: {
+            type: DataTypes.INTEGER,
+            field: "numero",
+            allowNull: false,
+         },
+         direccionDetalle: {
+            type: DataTypes.STRING,
+            field: "detalle",
+         },
       },
-      direccionNombre: {
-         type: DataTypes.TEXT,
-         field: "nombre",
-         allowNull: false,
-      },
-      direccionDistrito: {
-         type: DataTypes.STRING,
-         field: "distrito",
-         allowNull: false,
-      },
-      direccionProvincia: {
-         type: DataTypes.STRING,
-         field: "provincia",
-         allowNull: false,
-      },
-      direccionNumero: {
-         type: DataTypes.INTEGER,
-         field: "numero",
-         allowNull: false,
-      },
-      direccionDetalle: {
-         type: DataTypes.STRING,
-         field: "detalle",
-      },
-   },
-   {
-      modelName: "direcciones",
-   }
-);
+      {
+         modelName: "direcciones",
+      }
+   );
 
-const pedidoModel = connection.define(
-   "pedido",
-   {
-      pedidoId: {
-         type: DataTypes.INTEGER,
-         field: "id",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const pedidoModel = () =>
+   connection.define(
+      "pedidos",
+      {
+         pedidoId: {
+            type: DataTypes.INTEGER,
+            field: "id",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         pedidoFecha: {
+            type: DataTypes.DATE,
+            field: "fecha",
+            defaultValue: new Date(),
+            allowNull: false,
+         },
+         pedidoTotal: {
+            type: DataTypes.DECIMAL,
+            field: "total",
+            allowNull: false,
+         },
+         pedidoNombreCliente: {
+            type: DataTypes.STRING,
+            field: "nombre_cliente",
+            allowNull: false,
+         },
+         pedidoDocumentoCliente: {
+            type: DataTypes.STRING(12),
+            field: "documento_cliente",
+            allowNull: false,
+         },
       },
-      pedidoFecha: {
-         type: DataTypes.DATE,
-         field: "fecha",
-         defaultValue: new Date(),
-         allowNull: false,
-      },
-      pedidoTotal: {
-         type: DataTypes.DECIMAL,
-         field: "total",
-         allowNull: false,
-      },
-      pedidoNombreCliente: {
-         type: DataTypes.STRING,
-         field: "nombre_cliente",
-         allowNull: false,
-      },
-      pedidoDocumentoCliente: {
-         type: DataTypes.STRING(12),
-         field: "documento_cliente",
-         allowNull: false,
-      },
-   },
-   {
-      modelName: "pedidos",
-   }
-);
+      {
+         modelName: "pedidos",
+      }
+   );
 
-const detalleModel = connection.define(
-   "detalle",
-   {
-      detalleId: {
-         type: DataTypes.INTEGER,
-         field: "id",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const detalleModel = () =>
+   connection.define(
+      "detalles",
+      {
+         detalleId: {
+            type: DataTypes.INTEGER,
+            field: "id",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         detalleCantidad: {
+            type: DataTypes.INTEGER,
+            field: "cantidad",
+            allowNull: false,
+         },
+         detalleSubTotal: {
+            type: DataTypes.DECIMAL,
+            field: "sub_total",
+            allowNull: false,
+         },
       },
-      detalleCantidad: {
-         type: DataTypes.INTEGER,
-         field: "cantidad",
-         allowNull: false,
-      },
-      detalleSubTotal: {
-         type: DataTypes.DECIMAL,
-         field: "sub_total",
-         allowNull: false,
-      },
-   },
-   {
-      modelName: "detalles",
-      timestamps: false,
-   }
-);
+      {
+         modelName: "detalles",
+         timestamps: false,
+      }
+   );
 
-const productoModel = connection.define(
-   "producto",
-   {
-      productoId: {
-         type: DataTypes.INTEGER,
-         field: "id",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const productoModel = () =>
+   connection.define(
+      "productos",
+      {
+         productoId: {
+            type: DataTypes.INTEGER,
+            field: "id",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         productoNombre: {
+            type: DataTypes.INTEGER,
+            field: "nombre",
+            allowNull: false,
+         },
+         productoPrecio: {
+            type: DataTypes.DECIMAL,
+            field: "precio",
+            allowNull: false,
+         },
+         productoCodigo: {
+            type: DataTypes.STRING,
+            field: "codigo",
+            allowNull: false,
+         },
+         productoDescripcion: {
+            type: DataTypes.TEXT,
+            field: "descripcion",
+            allowNull: false,
+         },
+         productoCantidad: {
+            type: DataTypes.INTEGER,
+            field: "cantidad",
+            allowNull: false,
+            defaultValue: 0,
+         },
       },
-      productoNombre: {
-         type: DataTypes.INTEGER,
-         field: "nombre",
-         allowNull: false,
-      },
-      productoPrecio: {
-         type: DataTypes.DECIMAL,
-         field: "precio",
-         allowNull: false,
-      },
-      productoCodigo: {
-         type: DataTypes.STRING,
-         field: "codigo",
-         allowNull: false,
-      },
-      productoDescripcion: {
-         type: DataTypes.TEXT,
-         field: "descripcion",
-         allowNull: false,
-      },
-      productoCantidad: {
-         type: DataTypes.INTEGER,
-         field: "cantidad",
-         allowNull: false,
-         defaultValue: 0,
-      },
-   },
-   {
-      modelName: "productos",
-   }
-);
+      {
+         modelName: "productos",
+      }
+   );
 
-const categoriaModel = connection.define(
-   "categoria",
-   {
-      categoriaId: {
-         type: DataTypes.INTEGER,
-         field: "categoria",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const categoriaModel = () =>
+   connection.define(
+      "categorias",
+      {
+         categoriaId: {
+            type: DataTypes.INTEGER,
+            field: "categoria",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         categoriaNombre: {
+            type: DataTypes.STRING,
+            field: "nombre",
+            allowNull: false,
+         },
+         categoriaTipo: {
+            type: DataTypes.INTEGER,
+            field: "tipo",
+         },
       },
-      categoriaNombre: {
-         type: DataTypes.STRING,
-         field: "nombre",
-         allowNull: false,
-      },
-      categoriaTipo: {
-         type: DataTypes.INTEGER,
-         field: "tipo",
-      },
-   },
-   {
-      modelName: "categorias",
-      timestamps: false,
-   }
-);
+      {
+         modelName: "categorias",
+         timestamps: false,
+      }
+   );
 
-const servicioModel = connection.define(
-   "servicio",
-   {
-      servicioId: {
-         type: DataTypes.INTEGER,
-         field: "id",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const servicioModel = () =>
+   connection.define(
+      "servicios",
+      {
+         servicioId: {
+            type: DataTypes.INTEGER,
+            field: "id",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         servicioNombre: {
+            type: DataTypes.INTEGER,
+            field: "nombre",
+            allowNull: false,
+         },
+         servicioPrecio: {
+            type: DataTypes.DECIMAL,
+            field: "precio",
+            allowNull: false,
+         },
+         servicioCodigo: {
+            type: DataTypes.STRING,
+            field: "codigo",
+            allowNull: false,
+         },
+         servicioDescripcion: {
+            type: DataTypes.TEXT,
+            field: "descripcion",
+            allowNull: false,
+         },
+         servicioDisponibilidad: {
+            type: DataTypes.BOOLEAN,
+            field: "disponibilidad",
+            defaultValue: false,
+         },
       },
-      servicioNombre: {
-         type: DataTypes.INTEGER,
-         field: "nombre",
-         allowNull: false,
-      },
-      servicioPrecio: {
-         type: DataTypes.DECIMAL,
-         field: "precio",
-         allowNull: false,
-      },
-      servicioCodigo: {
-         type: DataTypes.STRING,
-         field: "codigo",
-         allowNull: false,
-      },
-      servicioDescripcion: {
-         type: DataTypes.TEXT,
-         field: "descripcion",
-         allowNull: false,
-      },
-      servicioDisponibilidad: {
-         type: DataTypes.TINYINT,
-         field: "disponibilidad",
-         defaultValue: false,
-      },
-   },
-   {
-      modelName: "servicios",
-   }
-);
+      {
+         modelName: "servicios",
+      }
+   );
 
-const imagenModel = connection.define(
-   "imagen",
-   {
-      imagenId: {
-         type: DataTypes.INTEGER,
-         field: "id",
-         primaryKey: true,
-         autoIncrement: true,
-         unique: true,
+const imagenModel = () =>
+   connection.define(
+      "imagenes",
+      {
+         imagenId: {
+            type: DataTypes.INTEGER,
+            field: "id",
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true,
+         },
+         imagenNombre: {
+            type: DataTypes.STRING,
+            field: "nombre",
+            allowNull: false,
+         },
+         imagenExtension: {
+            type: DataTypes.STRING,
+            field: "extension",
+            allowNull: false,
+         },
+         imagenPath: {
+            type: DataTypes.STRING,
+            field: "path",
+            allowNull: false,
+         },
       },
-      imagenNombre: {
-         type: DataTypes.STRING,
-         field: "nombre",
-         allowNull: false,
-      },
-      imagenExtension: {
-         type: DataTypes.STRING,
-         field: "extension",
-         allowNull: false,
-      },
-      imagenPath: {
-         type: DataTypes.STRING,
-         field: "path",
-         allowNull: false,
-      },
-   },
-   {
-      modelName: "imagenes",
-   }
-);
+      {
+         modelName: "imagenes",
+      }
+   );
+
+export const Usuario = usuarioModel();
+export const Tipo = tipoModel();
+export const Direccion = direccionModel();
+export const Pedido = pedidoModel();
+export const Detalle = detalleModel();
+export const Categoria = categoriaModel();
+export const Producto = productoModel();
+export const Servicio = servicioModel();
+export const Imagen = imagenModel();
+
+Tipo.hasOne(Usuario, {
+   foreignKey: { name: "tipoId", field: "tipo_id" },
+});
+Usuario.belongsTo(Tipo, { foreignKey: { name: "tipoId", field: "tipo_id" } });
+
+Direccion.hasOne(Usuario, {
+   foreignKey: { name: "direccionId", field: "direccion_id" },
+});
+Usuario.belongsTo(Direccion, {
+   foreignKey: { name: "direccionId", field: "direccion_id" },
+});
+
+Usuario.hasMany(Pedido, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
+});
+Pedido.belongsTo(Usuario, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
+});
+
+Pedido.hasMany(Detalle, {
+   foreignKey: { name: "pedidoId", field: "pedido_id" },
+});
+Detalle.belongsTo(Pedido, {
+   foreignKey: { name: "pedidoId", field: "pedido_id" },
+});
+
+Producto.hasMany(Detalle, {
+   foreignKey: { name: "productoId", field: "producto_id" },
+});
+Detalle.belongsTo(Producto, {
+   foreignKey: { name: "productoId", field: "producto_id" },
+});
+
+Categoria.hasMany(Producto, {
+   foreignKey: { name: "categoriaId", field: "categoria_id" },
+});
+Producto.belongsTo(Categoria, {
+   foreignKey: { name: "categoriaId", field: "categoria_id" },
+});
+Categoria.hasMany(Servicio, {
+   foreignKey: { name: "categoriaId", field: "categoria_id" },
+});
+Servicio.belongsTo(Categoria, {
+   foreignKey: { name: "categoriaId", field: "categoria_id" },
+});
+
+Imagen.hasOne(Servicio, {
+   foreignKey: { name: "imagenId", field: "imagen_id" },
+});
+Servicio.belongsTo(Imagen, {
+   foreignKey: { name: "imagenId", field: "imagen_id" },
+});
+
+Producto.belongsToMany(Imagen, { through: "productos_imagenes" });
+Imagen.belongsToMany(Producto, { through: "productos_imagenes" });
