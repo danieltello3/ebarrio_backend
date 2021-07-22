@@ -347,11 +347,11 @@ Tipo.hasOne(Usuario, {
 });
 Usuario.belongsTo(Tipo, { foreignKey: { name: "tipoId", field: "tipo_id" } });
 
-Direccion.hasOne(Usuario, {
-   foreignKey: { name: "direccionId", field: "direccion_id" },
+Usuario.hasOne(Direccion, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
 });
-Usuario.belongsTo(Direccion, {
-   foreignKey: { name: "direccionId", field: "direccion_id" },
+Direccion.belongsTo(Usuario, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
 });
 
 Usuario.hasMany(Pedido, {

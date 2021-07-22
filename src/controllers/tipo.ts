@@ -17,7 +17,7 @@ export const crearTipo = async (
       return res.status(400).json({
          success: false,
          message: "error al crear el tipo",
-         content: error.message,
+         content: error,
       });
    }
 };

@@ -4,6 +4,15 @@ type TTipoRequest = {
    tipoNombre: string;
 };
 
+type TUsuarioRequest = {
+   usuarioNombre: string;
+   usuarioApellido: string;
+   usuarioTelefono?: string;
+   usuarioCorreo: string;
+   usuarioPassword: string;
+   usuarioTipo: number;
+};
+
 export const tipoRequestDto = (
    req: Request,
    res: Response,
