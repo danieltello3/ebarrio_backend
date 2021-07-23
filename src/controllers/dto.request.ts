@@ -10,7 +10,8 @@ type TUsuarioRequest = {
    usuarioTelefono?: string;
    usuarioCorreo: string;
    usuarioPassword: string;
-   usuarioTipo: number;
+   tipoId: number;
+   imagenId?: number;
 };
 
 export const tipoRequestDto = (

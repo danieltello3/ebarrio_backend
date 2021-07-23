@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { sign } from "jsonwebtoken";
 import { Usuario } from "../models/cms.models";
 import dotenv from "dotenv";
+import { RequestUser } from "../utils/validador";
 dotenv.config();
 
 //REGISTART USUARIO
@@ -69,5 +70,12 @@ export const login = async (req: Request, res: Response) => {
 };
 
 //MOSTRAR USUARIO
-
+export const perfil = async (
+   req: RequestUser,
+   res: Response
+): Promise<Response> => {
+   return res.status(200).json({
+      success: true,
+   });
+};
 //lOGOUT

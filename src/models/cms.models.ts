@@ -332,6 +332,21 @@ const imagenModel = () =>
       }
    );
 
+const blackListModel = () =>
+   connection.define(
+      "blacklists",
+      {
+         blackListToken: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            primaryKey: true,
+         },
+      },
+      {
+         tableName: "black_list",
+         timestamps: false,
+      }
+   );
 export const Usuario = usuarioModel();
 export const Tipo = tipoModel();
 export const Direccion = direccionModel();
@@ -341,6 +356,7 @@ export const Categoria = categoriaModel();
 export const Producto = productoModel();
 export const Servicio = servicioModel();
 export const Imagen = imagenModel();
+export const BlackList = blackListModel();
 
 Tipo.hasOne(Usuario, {
    foreignKey: { name: "tipoId", field: "tipo_id" },
@@ -397,3 +413,10 @@ Servicio.belongsTo(Imagen, {
 
 Producto.belongsToMany(Imagen, { through: "productos_imagenes" });
 Imagen.belongsToMany(Producto, { through: "productos_imagenes" });
+
+Imagen.hasOne(Usuario, {
+   foreignKey: { name: "imagenId", field: "imagen_id" },
+});
+Usuario.belongsTo(Imagen, {
+   foreignKey: { name: "imagenId", field: "imagen_id" },
+});
