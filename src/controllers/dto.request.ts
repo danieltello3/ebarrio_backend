@@ -52,3 +52,36 @@ export const loginRequestDto = (
       });
    }
 };
+
+export const manejoArchivosDto = (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const archivo = req.file;
+   const { carpeta } = req.query;
+   if (!carpeta) {
+      return res.status(400).json({
+         success: false,
+         content: null,
+         message: "falta la carpeta de destino",
+      });
+   }
+   if (!archivo) {
+      return res.status(400).json({
+         success: false,
+         content: null,
+         message: "falta el archivo",
+      });
+   }
+   const size = req.file?.size;
+   if (size && size <= 5242880) {
+      next();
+   } else {
+      return res.status(400).json({
+         success: false,
+         content: null,
+         message: "el archivo no puede superar los 5MB",
+      });
+   }
+};

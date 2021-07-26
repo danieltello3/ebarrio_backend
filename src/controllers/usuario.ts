@@ -1,7 +1,7 @@
 import { compareSync } from "bcrypt";
 import { Request, Response } from "express";
 import { sign } from "jsonwebtoken";
-import { Usuario } from "../models/cms.models";
+import { BlackList, Usuario } from "../models/cms.models";
 import dotenv from "dotenv";
 import { RequestUser } from "../utils/validador";
 dotenv.config();
@@ -78,4 +78,25 @@ export const perfil = async (
       success: true,
    });
 };
+
 //lOGOUT
+export const logout = async (req: Request, res: Response) => {
+   if (!req.headers.authorization) {
+      return res.status(400).json({
+         success: false,
+         content: null,
+         message: "Se necesita una token para hacer logout",
+      });
+   }
+   const token = req.headers.authorization.split(" ")[1];
+   try {
+      await BlackList.create({ blackListToken: token });
+      return res.status(204).end();
+   } catch (error) {
+      return res.status(400).json({
+         success: false,
+         content: null,
+         message: `Error al hacer el logout: ${error.message}`,
+      });
+   }
+};
