@@ -21,3 +21,12 @@ export const crearTipo = async (
       });
    }
 };
+
+export const listarTipos = async (req: Request, res: Response) => {
+   const tipos = await Tipo.findAll();
+   return res.status(200).json({
+      success: true,
+      content: tipos,
+      message: "lista de tipos existentes",
+   });
+};

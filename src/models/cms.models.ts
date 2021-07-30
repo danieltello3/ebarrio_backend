@@ -18,7 +18,7 @@ const usuarioModel = () =>
             field: "nombre",
             allowNull: false,
             validate: {
-               is: /([a-zA-Z])\w+([ ])/,
+               is: [/([a-zA-Z])\w+([ ])*/],
             },
          },
          usuarioApellido: {
@@ -26,14 +26,14 @@ const usuarioModel = () =>
             field: "apellido",
             allowNull: false,
             validate: {
-               is: /([a-zA-Z])\w+([ ])/,
+               is: [/([a-zA-Z])\w+\s*/],
             },
          },
          usuarioTelefono: {
             type: DataTypes.STRING,
             field: "telefono",
             validate: {
-               is: /([0-9]{9})/,
+               is: [/([0-9]{9})*/],
             },
          },
          usuarioCorreo: {
@@ -49,7 +49,10 @@ const usuarioModel = () =>
             type: DataTypes.TEXT,
             field: "password",
             allowNull: false,
-            set: (valor: string) => hashSync(valor, 10),
+            set(valor) {
+               const passwordEncriptada = hashSync(String(valor), 10);
+               this.setDataValue("usuarioPassword", passwordEncriptada);
+            },
          },
       },
       {
@@ -200,7 +203,7 @@ const productoModel = () =>
             unique: true,
          },
          productoNombre: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             field: "nombre",
             allowNull: false,
          },
@@ -246,10 +249,6 @@ const categoriaModel = () =>
             type: DataTypes.STRING,
             field: "nombre",
             allowNull: false,
-         },
-         categoriaTipo: {
-            type: DataTypes.INTEGER,
-            field: "tipo",
          },
       },
       {
@@ -420,3 +419,12 @@ Imagen.hasOne(Usuario, {
 Usuario.belongsTo(Imagen, {
    foreignKey: { name: "imagenId", field: "imagen_id" },
 });
+
+Usuario.hasMany(Producto, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
+});
+Producto.belongsTo(Usuario, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
+});
+
+//Producto.sync({ force: true });

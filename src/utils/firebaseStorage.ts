@@ -68,7 +68,6 @@ export const eliminarArchivoUtil = async (carpeta: string, archivo: string) => {
       const respuesta = await bucket
          .file(`${carpeta}/${archivo}`)
          .delete({ ignoreNotFound: true });
-      console.log(respuesta);
       return respuesta;
    } catch (error) {
       console.log(error);
