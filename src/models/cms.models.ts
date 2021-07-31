@@ -346,6 +346,13 @@ const blackListModel = () =>
          timestamps: false,
       }
    );
+
+export const Producto_Imagen = connection.define(
+   "productos_imagenes",
+   {},
+   { timestamps: false }
+);
+
 export const Usuario = usuarioModel();
 export const Tipo = tipoModel();
 export const Direccion = direccionModel();
@@ -427,4 +434,5 @@ Producto.belongsTo(Usuario, {
    foreignKey: { name: "usuarioId", field: "usuario_id" },
 });
 
-//Producto.sync({ force: true });
+// Producto.sync({ force: true });
+// Imagen.sync({ force: true });

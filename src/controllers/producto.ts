@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Op } from "sequelize";
-import { Categoria, Producto } from "../models/cms.models";
+import { Categoria, Imagen, Producto } from "../models/cms.models";
 import {
    paginatedHelper,
    paginationSerializer,
@@ -28,6 +28,7 @@ export const crearProducto = async (req: RequestUser, res: Response) => {
          categoriaId,
          usuarioId,
       });
+      console.log(nuevoProducto);
       return res.status(201).json({
          success: true,
          content: nuevoProducto,
@@ -134,7 +135,7 @@ export const devolverProducto = async (req: Request, res: Response) => {
 
    const producto = await Producto.findByPk(id, {
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      include: { model: Categoria },
+      include: [Categoria, Imagen],
    });
 
    if (producto) {

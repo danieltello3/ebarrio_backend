@@ -11,13 +11,15 @@ const multer = Multer({
 export const imagenRouter = Router();
 
 imagenRouter.post(
-   "/subirImagen",
+   "/subirImagenPerfil",
+   authValidator,
    multer.single("imagen"),
    manejoArchivosDto,
    subirImagen
 );
 imagenRouter.post(
    "/subirImagenProductos",
+   authValidator,
    multer.array("imagen", 5),
    manejoArchivosDto,
    subirImagen

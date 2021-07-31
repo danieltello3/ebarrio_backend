@@ -142,7 +142,6 @@ export const logout = async (req: Request, res: Response) => {
 export const updatePerfil = async (req: RequestUser, res: Response) => {
    const id = req.user?.getDataValue("usuarioId");
    const { ...data } = req.body;
-   console.log(id, data);
    try {
       await Usuario.update(data, {
          where: {

@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { RequestUser } from "../utils/validador";
 
 type TTipoRequest = {
    tipoNombre: string;
@@ -44,6 +45,14 @@ export type TPedidoRequest = {
    pedidoNombreCliente: string;
    pedidoDocumentoCliente: string;
    pedidoDetalle: Array<TDetalle>;
+};
+
+export type TDireccionRequest = {
+   direccionNombre: string;
+   direccionDistrito: string;
+   direccionProvincia: string;
+   direccionNumero: number;
+   direccionDetalle: string;
 };
 //DTO TIPO
 export const tipoRequestDto = (
@@ -130,13 +139,12 @@ export const updateRequestDto = (
 
 //DTO ARCHIVOS
 export const manejoArchivosDto = (
-   req: Request,
+   req: RequestUser,
    res: Response,
    next: NextFunction
 ) => {
-   const archivo = req.file;
-   const archivos = req?.files;
-   console.log(archivos);
+   const archivo = req.file as Express.Multer.File | undefined;
+   const archivos = req?.files as Express.Multer.File[] | undefined;
 
    const { carpeta } = req.query;
    if (!carpeta) {
@@ -153,36 +161,39 @@ export const manejoArchivosDto = (
          message: "falta el archivo",
       });
    }
+   if (archivo) {
+      const size = req.file?.size;
+      if (size) {
+         if (size && size <= 5242880) {
+            next();
+         } else {
+            return res.status(400).json({
+               success: false,
+               content: null,
+               message: "el archivo no puede superar los 5MB",
+            });
+         }
+      }
+   }
+   if (archivos) {
+      const errores: Array<string> = [];
 
-   const size = req.file?.size;
-   if (size) {
-      if (size && size <= 5242880) {
+      archivos?.map((archivo: Express.Multer.File) => {
+         const size = archivo.size;
+         if (size >= 5242880) {
+            errores.push(`el archivo ${archivo.originalname} supera los 5MB`);
+         }
+      });
+      console.log("errores", errores);
+      if (errores.length === 0) {
          next();
       } else {
          return res.status(400).json({
             success: false,
             content: null,
-            message: "el archivo no puede superar los 5MB",
+            message: errores,
          });
       }
-   }
-   const errores: Array<string> = [];
-
-   // archivos?.map((archivo: Express.Multer.File) => {
-   //    const size = archivo.size;
-   //    if (size >= 5242880) {
-   //       errores.push(`el archivo ${archivo.originalname} supera los 5MB`);
-   //    }
-   // });
-   console.log(errores);
-   if (errores.length === 0) {
-      next();
-   } else {
-      return res.status(400).json({
-         success: false,
-         content: null,
-         message: errores,
-      });
    }
 };
 
@@ -283,6 +294,31 @@ export const pedidoRequestDto = (
          success: false,
          content: null,
          message: "Faltan datos del pedido",
+      });
+   }
+};
+
+//DTO DIRECCIONES
+export const direccionRequestDto = (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const { ...data }: TDireccionRequest = req.body;
+
+   if (
+      data.direccionDetalle &&
+      data.direccionDistrito &&
+      data.direccionNombre &&
+      data.direccionNumero &&
+      data.direccionProvincia
+   ) {
+      next();
+   } else {
+      return res.status(400).json({
+         success: false,
+         content: null,
+         message: "faltan datos para crear la direccion",
       });
    }
 };

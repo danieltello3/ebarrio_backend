@@ -9,6 +9,7 @@ import { productoRouter } from "../routes/producto";
 import { imagenRouter } from "../routes/imagen";
 import { categoriaRouter } from "../routes/categoria";
 import { pedidoRouter } from "../routes/pedido";
+import { direccionRouter } from "../routes/direccion";
 
 dotenv.config();
 
@@ -49,7 +50,7 @@ export default class Server {
       });
       this.app.use(tipoRouter);
       this.app.use(usuarioRouter);
-      this.app.use(productoRouter);
+      this.app.use(productoRouter, direccionRouter);
       this.app.use(imagenRouter, categoriaRouter, pedidoRouter);
    }
 
