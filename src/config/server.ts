@@ -53,7 +53,8 @@ export default class Server {
       process.env.NODE_ENV != "production"
          ? ((documentacion.host = `localhost:${this.port}`),
            (documentacion.schemes = ["http"]))
-         : ((documentacion.host = ``), (documentacion.schemes = ["https"]));
+         : ((documentacion.host = `https://ebarrio.herokuapp.com`),
+           (documentacion.schemes = ["https"]));
       this.app.use(
          "/docs",
          swaggerUI.serve,
