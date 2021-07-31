@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { json } from "body-parser";
-import dotenv from "dotenv";
-import { connection } from "./sequelize";
+import swaggerUI from "swagger-ui-express";
 import morgan from "morgan";
 import { tipoRouter } from "../routes/tipos";
 import { usuarioRouter } from "../routes/usuario";
@@ -11,7 +10,8 @@ import { categoriaRouter } from "../routes/categoria";
 import { pedidoRouter } from "../routes/pedido";
 import { direccionRouter } from "../routes/direccion";
 import documentacion from "../docs/swagger.json";
-import swaggerUI from "swagger-ui-express";
+import { connection } from "./sequelize";
+import dotenv from "dotenv";
 
 dotenv.config();
 
