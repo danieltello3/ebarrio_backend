@@ -18,7 +18,7 @@ const usuarioModel = () =>
             field: "nombre",
             allowNull: false,
             validate: {
-               is: /([a-zA-Z])\w+([ ])/,
+               is: [/([a-zA-Z])\w+([ ])*/],
             },
          },
          usuarioApellido: {
@@ -26,14 +26,14 @@ const usuarioModel = () =>
             field: "apellido",
             allowNull: false,
             validate: {
-               is: /([a-zA-Z])\w+([ ])/,
+               is: [/([a-zA-Z])\w+\s*/],
             },
          },
          usuarioTelefono: {
             type: DataTypes.STRING,
             field: "telefono",
             validate: {
-               is: /([0-9]{9})/,
+               is: [/([0-9]{9})*/],
             },
          },
          usuarioCorreo: {
@@ -49,7 +49,10 @@ const usuarioModel = () =>
             type: DataTypes.TEXT,
             field: "password",
             allowNull: false,
-            set: (valor: string) => hashSync(valor, 10),
+            set(valor) {
+               const passwordEncriptada = hashSync(String(valor), 10);
+               this.setDataValue("usuarioPassword", passwordEncriptada);
+            },
          },
       },
       {
@@ -200,7 +203,7 @@ const productoModel = () =>
             unique: true,
          },
          productoNombre: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             field: "nombre",
             allowNull: false,
          },
@@ -246,10 +249,6 @@ const categoriaModel = () =>
             type: DataTypes.STRING,
             field: "nombre",
             allowNull: false,
-         },
-         categoriaTipo: {
-            type: DataTypes.INTEGER,
-            field: "tipo",
          },
       },
       {
@@ -332,6 +331,28 @@ const imagenModel = () =>
       }
    );
 
+const blackListModel = () =>
+   connection.define(
+      "blacklists",
+      {
+         blackListToken: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            primaryKey: true,
+         },
+      },
+      {
+         tableName: "black_list",
+         timestamps: false,
+      }
+   );
+
+export const Producto_Imagen = connection.define(
+   "productos_imagenes",
+   {},
+   { timestamps: false }
+);
+
 export const Usuario = usuarioModel();
 export const Tipo = tipoModel();
 export const Direccion = direccionModel();
@@ -341,17 +362,18 @@ export const Categoria = categoriaModel();
 export const Producto = productoModel();
 export const Servicio = servicioModel();
 export const Imagen = imagenModel();
+export const BlackList = blackListModel();
 
 Tipo.hasOne(Usuario, {
    foreignKey: { name: "tipoId", field: "tipo_id" },
 });
 Usuario.belongsTo(Tipo, { foreignKey: { name: "tipoId", field: "tipo_id" } });
 
-Direccion.hasOne(Usuario, {
-   foreignKey: { name: "direccionId", field: "direccion_id" },
+Usuario.hasOne(Direccion, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
 });
-Usuario.belongsTo(Direccion, {
-   foreignKey: { name: "direccionId", field: "direccion_id" },
+Direccion.belongsTo(Usuario, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
 });
 
 Usuario.hasMany(Pedido, {
@@ -397,3 +419,20 @@ Servicio.belongsTo(Imagen, {
 
 Producto.belongsToMany(Imagen, { through: "productos_imagenes" });
 Imagen.belongsToMany(Producto, { through: "productos_imagenes" });
+
+Imagen.hasOne(Usuario, {
+   foreignKey: { name: "imagenId", field: "imagen_id" },
+});
+Usuario.belongsTo(Imagen, {
+   foreignKey: { name: "imagenId", field: "imagen_id" },
+});
+
+Usuario.hasMany(Producto, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
+});
+Producto.belongsTo(Usuario, {
+   foreignKey: { name: "usuarioId", field: "usuario_id" },
+});
+
+// Producto.sync({ force: true });
+// Imagen.sync({ force: true });

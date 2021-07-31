@@ -4,6 +4,12 @@ import dotenv from "dotenv";
 import { connection } from "./sequelize";
 import morgan from "morgan";
 import { tipoRouter } from "../routes/tipos";
+import { usuarioRouter } from "../routes/usuario";
+import { productoRouter } from "../routes/producto";
+import { imagenRouter } from "../routes/imagen";
+import { categoriaRouter } from "../routes/categoria";
+import { pedidoRouter } from "../routes/pedido";
+import { direccionRouter } from "../routes/direccion";
 
 dotenv.config();
 
@@ -43,6 +49,9 @@ export default class Server {
          res.send("Bienviendo a la API de Ebarrio");
       });
       this.app.use(tipoRouter);
+      this.app.use(usuarioRouter);
+      this.app.use(productoRouter, direccionRouter);
+      this.app.use(imagenRouter, categoriaRouter, pedidoRouter);
    }
 
    start() {
@@ -59,3 +68,4 @@ export default class Server {
       });
    }
 }
+//{ force: true }

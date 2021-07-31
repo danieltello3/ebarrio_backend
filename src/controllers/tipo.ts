@@ -17,7 +17,16 @@ export const crearTipo = async (
       return res.status(400).json({
          success: false,
          message: "error al crear el tipo",
-         content: error.message,
+         content: error,
       });
    }
+};
+
+export const listarTipos = async (req: Request, res: Response) => {
+   const tipos = await Tipo.findAll();
+   return res.status(200).json({
+      success: true,
+      content: tipos,
+      message: "lista de tipos existentes",
+   });
 };
