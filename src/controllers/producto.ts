@@ -28,7 +28,7 @@ export const crearProducto = async (req: RequestUser, res: Response) => {
          categoriaId,
          usuarioId,
       });
-      console.log(nuevoProducto);
+
       return res.status(201).json({
          success: true,
          content: nuevoProducto,
@@ -107,7 +107,6 @@ export const busquedaProductos = async (req: Request, res: Response) => {
       ];
    }
 
-   console.log(filtro);
    const page = Number(req.query?.page) ?? 1;
    const perPage = Number(req.query?.perPage) ?? 10;
    const paginationParams = paginatedHelper({ page, perPage });
@@ -119,7 +118,6 @@ export const busquedaProductos = async (req: Request, res: Response) => {
       attributes: { exclude: ["createdAt", "updatedAt"] },
       ...paginationParams,
    });
-   console.log(rows);
 
    const pagination = paginationSerializer(count, { perPage, page });
 
@@ -167,8 +165,6 @@ export const actualizarProducto = async (req: RequestUser, res: Response) => {
    const tareaActualizada = await Producto.update(req.body, {
       where: { [Op.and]: [{ productoId: id }, { usuarioId: userId }] },
    });
-
-   console.log(tareaActualizada);
 
    if (tareaActualizada[0] === 1) {
       const data = await Producto.findByPk(id, {

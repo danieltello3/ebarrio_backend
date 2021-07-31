@@ -92,7 +92,6 @@ export const perfil = async (
    const imagenId = req?.user?.getDataValue("imagenId");
    const imagen_encontrada = await Imagen.findByPk(imagenId);
    let url = null;
-   console.log(imagen_encontrada);
    try {
       if (imagen_encontrada) {
          url = await generarUrl(

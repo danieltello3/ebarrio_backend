@@ -53,7 +53,6 @@ export const authValidator = async (
          },
       });
       req.user = usuario;
-      console.log(req.user?.getDataValue("usuarioId"));
       next();
    } else {
       return res.status(401).json({

@@ -49,7 +49,7 @@ export const retornarDireccionUsuario = async (
    res: Response
 ) => {
    const id = req.user?.getDataValue("usuarioId");
-   console.log(id);
+
    const direcciones = await Direccion.findOne({
       where: {
          usuarioId: id,
