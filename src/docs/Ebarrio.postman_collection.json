@@ -1,0 +1,792 @@
+{
+	"info": {
+		"_postman_id": "7826300f-3c5c-466b-a416-4f9f2593417c",
+		"name": "Ebarrio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tipos",
+			"item": [
+				{
+					"name": "/tipos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/tipos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tipos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tipos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoNombre\": \"vendedor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tipos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tipos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "/registro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuarioNombre\":\"Daniel\",\r\n    \"usuarioApellido\":\"Tello\",\r\n    \"usuarioCorreo\": \"dantello.319@gmail.com\",\r\n    \"usuarioPassword\": \"da123456\",\r\n    \"tipoId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/registro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"registro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"dantello.319@gmail.com\",\r\n    \"password\": \"da123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzUyMTY3MCwiZXhwIjoxNjI3NTMyNDcwfQ.aqpRGpZQYMQCg5xv9DqRKJlKLACzbzFak1EjNB3eVU4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/perfil",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzUyMTY3MCwiZXhwIjoxNjI3NTMyNDcwfQ.aqpRGpZQYMQCg5xv9DqRKJlKLACzbzFak1EjNB3eVU4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/perfil",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/perfil",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzUyMzA5NywiZXhwIjoxNjI3NTMzODk3fQ.Wv9C6-cD92bU6KF_l43KI-B7ITR-gWvMEzECDLvo19Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuarioNombre\":\"Daniel\",\r\n    \"usuarioApellido\":\"Tello\",\r\n    \"usuarioCorreo\": \"dantello.319@gmail.com\",\r\n    \"usuarioPassword\": \"da123456\",\r\n    \"tipoId\": 3,\r\n    \"imagenId\": 6,\r\n    \"usuarioTelefono\": \"999036353\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/perfil",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/perfil/<id>",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imagenId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/perfil/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"perfil",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "/productos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzY4MDUwNCwiZXhwIjoxNjI3NjkxMzA0fQ.vxLZD1RgwD0j0SNawtjbqp487bpuXC6-zUIZdWCHjUw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productoNombre\": \"Alfajor tradicional\",\r\n    \"productoPrecio\": 5.50,\r\n    \"productoCodigo\": \"A001\",\r\n    \"productoDescripcion\": \"Alfajor tradicional relleno de manjar blanco\",\r\n    \"productoCantidad\": 5,\r\n    \"categoriaId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/productos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/productos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/busquedaProductos?",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/busquedaProductos?usuario=2&codigo=tc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"busquedaProductos"
+							],
+							"query": [
+								{
+									"key": "usuario",
+									"value": "2"
+								},
+								{
+									"key": "codigo",
+									"value": "tc"
+								}
+							]
+						},
+						"description": "query permitidos: id, usuario, codigo, nombre, categoria, rango de precio: precioInicial, precioFinal. y paginacion: perPage, page"
+					},
+					"response": []
+				},
+				{
+					"name": "/productos/<id>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/productos/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/productos/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzU5MTgwNCwiZXhwIjoxNjI3NjAyNjA0fQ.P83MOsxHk_GxnWkWZEDVf9hBcXgPoEcVc8T4c9yTF24",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productoPrecio\": 5.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/productos/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/productos/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzU5MTgwNCwiZXhwIjoxNjI3NjAyNjA0fQ.P83MOsxHk_GxnWkWZEDVf9hBcXgPoEcVc8T4c9yTF24",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/productos/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/productos/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzU5MTgwNCwiZXhwIjoxNjI3NjAyNjA0fQ.P83MOsxHk_GxnWkWZEDVf9hBcXgPoEcVc8T4c9yTF24",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productoNombre\": \"Alfajor tradicional\",\r\n    \"productoPrecio\": 5.80,\r\n    \"productoCodigo\": \"A001\",\r\n    \"productoDescripcion\": \"Alfajor tradicional relleno de manjar blanco\",\r\n    \"productoCantidad\": 5,\r\n    \"categoriaId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/productos/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Imagenes",
+			"item": [
+				{
+					"name": "/subirImagen?carpeta=usuarios",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagen",
+									"type": "file",
+									"src": "/D:/Daniel/perfil3.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/subirImagen?carpeta=usuarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"subirImagen"
+							],
+							"query": [
+								{
+									"key": "carpeta",
+									"value": "usuarios"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/subirImagenProductos?carpeta=productos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzY4MDUwNCwiZXhwIjoxNjI3NjkxMzA0fQ.vxLZD1RgwD0j0SNawtjbqp487bpuXC6-zUIZdWCHjUw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagen",
+									"type": "file",
+									"src": [
+										"/C:/Users/dan_3/Downloads/pexels-photo-3.jpeg",
+										"/C:/Users/dan_3/Downloads/pexels-photo-4050318.jpeg",
+										"/C:/Users/dan_3/Downloads/pexels-photo-6782474.jpeg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/subirImagenProductos?carpeta=productos&productoId=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"subirImagenProductos"
+							],
+							"query": [
+								{
+									"key": "carpeta",
+									"value": "productos"
+								},
+								{
+									"key": "productoId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/eliminarImagen/<id>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/eliminarImagen/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"eliminarImagen",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "/categorias",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoriaNombre\": \"alfajores\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/categorias",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categorias",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "/pedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzYyMDg0NiwiZXhwIjoxNjI3NjMxNjQ2fQ.jmTJF-hxyK68EbVSrlt37kYqNzotUiPiAcYAjrR0s0I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pedidoFecha\": \"2021-07-12 20:38\",\r\n    \"pedidoNombreCliente\" : \"Ana\",\r\n    \"pedidoDocumentoCliente\": \"46596270\",\r\n    \"pedidoDetalle\": [\r\n        {\r\n            \"detalleCantidad\": 1,\r\n            \"detalleSubTotal\": 49.90,\r\n            \"productoId\": 1\r\n        },\r\n        {\r\n            \"detalleCantidad\": 2,\r\n            \"detalleSubTotal\": 5.8,\r\n            \"productoId\": 3\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/pedidos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzY2Nzc1OCwiZXhwIjoxNjI3Njc4NTU4fQ.wMtLClCqnFkpp1wplP1Uh3Bhg4jRXS2BTNY5fbYYMo8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/pedidos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Direcciones",
+			"item": [
+				{
+					"name": "/direcciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/direcciones",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"direcciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/direcciones",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzY4MDUwNCwiZXhwIjoxNjI3NjkxMzA0fQ.vxLZD1RgwD0j0SNawtjbqp487bpuXC6-zUIZdWCHjUw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"direccionNombre\" : \"Av. Jaime Herrera Ardiles\",\r\n    \"direccionDistrito\": \"Pueblo Libre\",\r\n    \"direccionProvincia\": \"Lima\",\r\n    \"direccionNumero\": 377,\r\n    \"direccionDetalle\": \"altura de la cuadra 16 de la av. la mar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/direcciones",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"direcciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/direccionUsuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIsImlhdCI6MTYyNzY5MDE2OCwiZXhwIjoxNjI3NzAwOTY4fQ.MGw6OlgduwYFS5R1ndzE2IbTwv-IoekZQiQRdyTt4GE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/direccionUsuario",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"direccionUsuario"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:8000"
+		}
+	]
+}

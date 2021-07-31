@@ -10,6 +10,8 @@ import { imagenRouter } from "../routes/imagen";
 import { categoriaRouter } from "../routes/categoria";
 import { pedidoRouter } from "../routes/pedido";
 import { direccionRouter } from "../routes/direccion";
+import documentacion from "../docs/swagger.json";
+import swaggerUI from "swagger-ui-express";
 
 dotenv.config();
 
@@ -48,9 +50,18 @@ export default class Server {
       this.app.get("/", (req: Request, res: Response) => {
          res.send("Bienviendo a la API de Ebarrio");
       });
-      this.app.use(tipoRouter);
-      this.app.use(usuarioRouter);
-      this.app.use(productoRouter, direccionRouter);
+      process.env.NODE_ENV != "production"
+         ? ((documentacion.host = `localhost:${this.port}`),
+           (documentacion.schemes = ["http"]))
+         : ((documentacion.host = ``), (documentacion.schemes = ["https"]));
+      this.app.use(
+         "/docs",
+         swaggerUI.serve,
+         swaggerUI.setup(documentacion, {
+            customCss: ".swagger-ui .topbar {display: none}",
+         })
+      );
+      this.app.use(tipoRouter, usuarioRouter, productoRouter, direccionRouter);
       this.app.use(imagenRouter, categoriaRouter, pedidoRouter);
    }
 

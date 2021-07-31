@@ -1,0 +1,860 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Ebarrio
+  description: "API de Ebarrio, proyecto final del bootcamp fullstack de CodiGo"
+  contact: 
+    name: "Daniel Tello"
+    email: "dantello.319@gmail.com"
+host: '127.0.0.1:8000'
+basePath: /
+securityDefinitions: 
+  JWT_token:
+    type: "apiKey"
+    description: "Bearer token"
+    name: "Authorization"
+    in: header
+  
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /tipos:
+    get:
+      summary: /tipos
+      tags:
+        - Tipos
+      operationId: /tipos
+      deprecated: false
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    post:
+      summary: /tipos
+      tags:
+        - Tipos
+      operationId: Post/tipos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1tiposrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /registro:
+    post:
+      summary: /registro
+      tags:
+        - Usuarios
+      operationId: /registro
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1registrorequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /login:
+    post:
+      summary: /login
+      tags:
+        - Usuarios
+      operationId: /login
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1loginrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /logout:
+    post:
+      summary: /logout
+      tags:
+        - Usuarios
+      operationId: /logout
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /perfil:
+    get:
+      summary: /perfil
+      tags:
+        - Usuarios
+      operationId: /perfil
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    put:
+      summary: /perfil
+      tags:
+        - Usuarios
+      operationId: Put/perfil
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1perfilrequest'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /perfil/<id>:
+    patch:
+      summary: /perfil/<id>
+      tags:
+        - Usuarios
+      operationId: /perfil/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1perfil~1%3Cid%3Erequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /productos:
+    post:
+      summary: /productos
+      tags:
+        - Productos
+      operationId: /productos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1productosrequest'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    get:
+      summary: /productos
+      tags:
+        - Productos
+      operationId: Get/productos
+      deprecated: false
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /busquedaProductos:
+    get:
+      description: >-
+        query permitidos: id, usuario, codigo, nombre, categoria, rango de
+        precio: precioInicial, precioFinal. y paginacion: perPage, page
+      summary: /busquedaProductos?
+      tags:
+        - Productos
+      operationId: /busquedaProductos?
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: usuario
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: ''
+        - name: codigo
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: nombre
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: categoria
+          in: query
+          required: false
+          type: integer
+          description: ''
+        - name: precioInicial
+          in: query
+          required: false
+          type: integer
+          description: 'rango de precio'
+        - name: precioFinal
+          in: query
+          required: false
+          type: integer
+          description: 'rango de precio'
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: 'paginacion'
+        - name: perPage
+          in: query
+          required: false
+          type: integer
+          description: 'paginacion'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /productos/<id>:
+    get:
+      summary: /productos/<id>
+      tags:
+        - Productos
+      operationId: /productos/<id>
+      deprecated: false
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    patch:
+      summary: /productos/<id>
+      tags:
+        - Productos
+      operationId: Patch/productos/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1productos~1%3Cid%3Erequest'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    put:
+      summary: /productos/<id>
+      tags:
+        - Productos
+      operationId: Put/productos/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1productos~1%3Cid%3Erequest1'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    delete:
+      summary: /productos/<id>
+      tags:
+        - Productos
+      operationId: /productos/<id>1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /subirImagenPerfil:
+    post:
+      summary: /subirImagenPerfil?carpeta=usuarios
+      tags:
+        - Imagenes
+      operationId: /subirImagen?carpeta=usuarios
+      deprecated: false
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: carpeta
+          in: query
+          required: true
+          type: string
+          description: ''
+        - name: imagen
+          in: formData
+          required: true
+          type: file
+          description: 'imagen debe pesar menos de 5MB'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /subirImagenProductos:
+    post:
+      summary: /subirImagenProductos?carpeta=productos
+      tags:
+        - Imagenes
+      operationId: /subirImagenProductos?carpeta=productos
+      deprecated: false
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: carpeta
+          in: query
+          required: true
+          type: string
+          description: 'carpeta productos'
+        - name: productoId
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: 'poner el id del producto al que pertenecen las fotos'
+        - name: imagen
+          in: formData
+          required: true
+          type: file
+          description: 'imagen debe pesar menos de 5MB'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /eliminarImagen/5:
+    delete:
+      summary: /eliminarImagen/<id>
+      tags:
+        - Imagenes
+      operationId: /eliminarImagen/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: 'Bearer {token}'
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /categorias:
+    post:
+      summary: /categorias
+      tags:
+        - Categorias
+      operationId: /categorias
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1categoriasrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    get:
+      summary: /categorias
+      tags:
+        - Categorias
+      operationId: Get/categorias
+      deprecated: false
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /pedidos:
+    post:
+      summary: /pedidos
+      tags:
+        - Pedidos
+      operationId: /pedidos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1pedidosrequest'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    get:
+      summary: /pedidos
+      tags:
+        - Pedidos
+      operationId: Get/pedidos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /direcciones:
+    get:
+      summary: /direcciones
+      tags:
+        - Direcciones
+      operationId: /direcciones
+      deprecated: false
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    post:
+      summary: /direcciones
+      tags:
+        - Direcciones
+      operationId: Post/direcciones
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1direccionesrequest'
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /direccionUsuario:
+    get:
+      summary: /direccionUsuario
+      tags:
+        - Direcciones
+      operationId: /direccionUsuario
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          default: 'Bearer {token}'
+          type: string
+      security:
+       - JWT_token: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+definitions:
+  /tiposrequest:
+    title: /tiposrequest
+    example:
+      tipoNombre: 
+    type: object
+    properties:
+      tipoNombre:
+        type: string
+    required:
+      - tipoNombre
+  /registrorequest:
+    title: /registrorequest
+    example:
+      usuarioNombre: 
+      usuarioApellido:
+      usuarioCorreo: 
+      usuarioPassword: 
+      tipoId: 
+    type: object
+    properties:
+      usuarioNombre:
+        type: string
+      usuarioApellido:
+        type: string
+      usuarioCorreo:
+        type: string
+      usuarioPassword:
+        type: string
+      tipoId:
+        type: integer
+        format: int32
+    required:
+      - usuarioNombre
+      - usuarioApellido
+      - usuarioCorreo
+      - usuarioPassword
+      - tipoId
+  /loginrequest:
+    title: /loginrequest
+    example:
+      email: 
+      password: 
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+      - email
+      - password
+  /perfilrequest:
+    title: /perfilrequest
+    example:
+      usuarioNombre: 
+      usuarioApellido: 
+      usuarioCorreo: 
+      usuarioPassword: 
+      tipoId:
+      usuarioTelefono: 
+    type: object
+    properties:
+      usuarioNombre:
+        type: string
+      usuarioApellido:
+        type: string
+      usuarioCorreo:
+        type: string
+      usuarioPassword:
+        type: string
+      tipoId:
+        type: integer
+        format: int32
+      usuarioTelefono:
+        type: string
+    required:
+      - usuarioNombre
+      - usuarioApellido
+      - usuarioCorreo
+      - usuarioPassword
+      - tipoId
+      - usuarioTelefono
+  /perfil/<id>request:
+    title: /perfil/<id>request
+    example:
+      imagenId: 
+    type: object
+      
+    
+  /productosrequest:
+    title: /productosrequest
+    example:
+      productoNombre:
+      productoPrecio:
+      productoCodigo:
+      productoDescripcion:
+      productoCantidad:
+      categoriaId:
+    type: object
+    properties:
+      productoNombre:
+        type: string
+      productoPrecio:
+        type: number
+        format: double
+      productoCodigo:
+        type: string
+      productoDescripcion:
+        type: string
+      productoCantidad:
+        type: integer
+        format: int32
+      categoriaId:
+        type: integer
+        format: int32
+    required:
+      - productoNombre
+      - productoPrecio
+      - productoCodigo
+      - productoDescripcion
+      - productoCantidad
+      - categoriaId
+  /productos/<id>request:
+    title: /productos/<id>request
+    example:
+      productoPrecio:
+    type: object
+    properties:
+      productoPrecio:
+        type: number
+        format: double
+    required:
+      - productoPrecio
+  /productos/<id>request1:
+    title: /productos/<id>request1
+    example:
+      productoNombre:
+      productoPrecio: 
+      productoCodigo:
+      productoDescripcion:
+      productoCantidad:
+      categoriaId:
+    type: object
+    properties:
+      productoNombre:
+        type: string
+      productoPrecio:
+        type: number
+        format: double
+      productoCodigo:
+        type: string
+      productoDescripcion:
+        type: string
+      productoCantidad:
+        type: integer
+        format: int32
+      categoriaId:
+        type: integer
+        format: int32
+    required:
+      - productoNombre
+      - productoPrecio
+      - productoCodigo
+      - productoDescripcion
+      - productoCantidad
+      - categoriaId
+  /categoriasrequest:
+    title: /categoriasrequest
+    example:
+      categoriaNombre: 
+    type: object
+    properties:
+      categoriaNombre:
+        type: string
+    required:
+      - categoriaNombre
+  /pedidosrequest:
+    title: /pedidosrequest
+    example:
+      pedidoFecha: 
+      pedidoNombreCliente: 
+      pedidoDocumentoCliente:
+      pedidoDetalle:
+        - detalleCantidad: 
+          detalleSubTotal:
+          productoId:
+        - detalleCantidad:
+          detalleSubTotal:
+          productoId:
+    type: object
+    properties:
+      pedidoFecha:
+        type: string
+      pedidoNombreCliente:
+        type: string
+      pedidoDocumentoCliente:
+        type: string
+      pedidoDetalle:
+        type: array
+        items:
+          $ref: '#/definitions/PedidoDetalle'
+    required:
+      - pedidoFecha
+      - pedidoNombreCliente
+      - pedidoDocumentoCliente
+      - pedidoDetalle
+  PedidoDetalle:
+    title: PedidoDetalle
+    example:
+      detalleCantidad: 
+      detalleSubTotal: 
+      productoId: 
+    type: object
+    properties:
+      detalleCantidad:
+        type: integer
+        format: int32
+      detalleSubTotal:
+        type: number
+        format: double
+      productoId:
+        type: integer
+        format: int32
+    required:
+      - detalleCantidad
+      - detalleSubTotal
+      - productoId
+  /direccionesrequest:
+    title: /direccionesrequest
+    example:
+      direccionNombre:
+      direccionDistrito:
+      direccionProvincia:
+      direccionNumero:
+      direccionDetalle:
+    type: object
+    properties:
+      direccionNombre:
+        type: string
+      direccionDistrito:
+        type: string
+      direccionProvincia:
+        type: string
+      direccionNumero:
+        type: integer
+        format: int32
+      direccionDetalle:
+        type: string
+    required:
+      - direccionNombre
+      - direccionDistrito
+      - direccionProvincia
+      - direccionNumero
+      - direccionDetalle
+tags:
+  - name: Tipos
+  - name: Usuarios
+  - name: Productos
+  - name: Imagenes
+  - name: Categorias
+  - name: Pedidos
+  - name: Direcciones
