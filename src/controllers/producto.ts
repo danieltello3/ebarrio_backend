@@ -53,6 +53,7 @@ export const listarProductos = async (req: Request, res: Response) => {
       Producto.count(),
       Producto.findAll({
          attributes: { exclude: ["createdAt", "updatedAt"] },
+         include: [Imagen],
          ...paginationParams,
       }),
    ]);
