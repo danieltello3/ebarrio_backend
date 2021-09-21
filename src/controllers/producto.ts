@@ -1,11 +1,52 @@
 import { Request, Response } from "express";
-import { Op } from "sequelize";
-import { Categoria, Imagen, Producto } from "../models/cms.models";
+import { Model, ModelCtor, Op } from "sequelize";
+import {
+   Categoria,
+   Imagen,
+   Producto,
+   Producto_Imagen,
+} from "../models/cms.models";
+import { generarUrl } from "../utils/firebaseStorage";
 import {
    paginatedHelper,
    paginationSerializer,
 } from "../utils/pagination.helper";
 import { RequestUser } from "../utils/validador";
+import { TImagen, TProductoImagen } from "./dto.request";
+
+const buscarImagen = async (productoId: string) => {
+   const tieneImagenes: Model<TProductoImagen>[] | null =
+      await Producto_Imagen.findAll({
+         where: { productoProductoId: productoId },
+      });
+   console.log(tieneImagenes);
+   let listaUrl = ["none"];
+   if (tieneImagenes) {
+      const listaImagenes = await Promise.all(
+         tieneImagenes.map(async (imagen) => {
+            const imagenJson = await Imagen.findOne({
+               where: { imagenId: imagen?.getDataValue("imageneImagenId") },
+            });
+            return imagenJson;
+         })
+      );
+
+      console.log(listaImagenes);
+      if (listaImagenes) {
+         listaUrl = await Promise.all(
+            listaImagenes.map(async (imagen) => {
+               return (await generarUrl(
+                  imagen?.getDataValue("imagenPath"),
+                  `${imagen?.getDataValue(
+                     "imagenNombre"
+                  )}.${imagen?.getDataValue("imagenExtension")}`
+               )) as string;
+            })
+         );
+      }
+   }
+   return listaUrl;
+};
 
 export const crearProducto = async (req: RequestUser, res: Response) => {
    const {
@@ -38,7 +79,7 @@ export const crearProducto = async (req: RequestUser, res: Response) => {
       return res.status(400).json({
          success: false,
          content: null,
-         message: `Error al crear el producto, ${error.message}`,
+         message: `Error al crear el producto, ${error}`,
       });
    }
 };
@@ -131,16 +172,18 @@ export const busquedaProductos = async (req: Request, res: Response) => {
 
 export const devolverProducto = async (req: Request, res: Response) => {
    const { id } = req.params;
-
+   let url;
+   url = await buscarImagen(id);
+   console.log(url);
    const producto = await Producto.findByPk(id, {
       attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [Categoria, Imagen],
    });
-
-   if (producto) {
-      return res.status(200).json({
+   const productoJson = producto?.toJSON();
+   if (productoJson) {
+      return res.status(200).send({
          success: true,
-         content: producto,
+         content: { ...productoJson, url },
          message: `se retorno el producto con el id: ${id}`,
       });
    } else {

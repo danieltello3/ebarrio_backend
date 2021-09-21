@@ -65,7 +65,7 @@ export const crearPedido = async (req: RequestUser, res: Response) => {
       return res.status(400).json({
          success: false,
          content: null,
-         message: `Error al crear el pedido. ${error.message}`,
+         message: `Error al crear el pedido. ${error}`,
       });
    }
 };
@@ -78,6 +78,7 @@ export const listarPedidos = async (req: RequestUser, res: Response) => {
 
    const { count, rows } = await Pedido.findAndCountAll({
       ...paginationParams,
+      include: Detalle,
    });
 
    const pagination = paginationSerializer(count, { perPage, page });

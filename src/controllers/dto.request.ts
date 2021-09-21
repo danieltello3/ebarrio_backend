@@ -14,6 +14,11 @@ type TLoginRequest = {
    password: string;
 };
 
+export type TProductoImagen = {
+   productoProductoId: number;
+   imageneImagenId: number;
+};
+
 type TUsuarioRequest = {
    usuarioNombre: string;
    usuarioApellido: string;
@@ -22,6 +27,13 @@ type TUsuarioRequest = {
    usuarioPassword: string;
    tipoId: number;
    imagenId?: number;
+};
+
+export type TImagen = {
+   imagenId: number;
+   imagenNombre: string;
+   imagenExtension: string;
+   imagenPath: string;
 };
 
 export type TProductoRequest = {

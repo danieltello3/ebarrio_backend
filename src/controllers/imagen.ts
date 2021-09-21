@@ -113,14 +113,14 @@ export const subirImagen = async (req: RequestUser, res: Response) => {
             });
          } catch (error) {
             console.log(error);
-            return res.status(400).json(error.message);
+            return res.status(400).json(ErrorEvent);
          }
       }
    } catch (error) {
       return res.status(400).json({
          success: false,
          content: null,
-         message: `Error al subir la imagen, ${error.message}`,
+         message: `Error al subir la imagen, ${error}`,
       });
    }
 };
@@ -152,7 +152,7 @@ export const eliminarArchivo = async (req: Request, res: Response) => {
       return res.status(404).json({
          success: false,
          content: null,
-         message: `Error al eliminar el archivo, ${error.message}`,
+         message: `Error al eliminar el archivo, ${error}`,
       });
    }
 };
